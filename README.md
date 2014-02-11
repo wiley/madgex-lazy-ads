@@ -69,7 +69,7 @@ This ad will only load if the div container is at least 728 x 90 (leaderboard) o
 This ad will only load if the viewport is a screen & at least 800px wide at load.
 ``` html
   <!-- wrap all ad scripts in a lazyad div & lazyad script  -->
-  <div class="ad ad--leaderboard" data-lazyad data-matchmedia="only screen and (min-width: 800px)">
+  <div class="ad" data-lazyad data-matchmedia="only screen and (min-width: 800px)">
     <script type="text/lazyad">
       <!-- Ad script -->
     </script>
