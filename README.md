@@ -1,7 +1,7 @@
 Lazy Ads
 ========
 
-Deliver synchronous ads asynchronously without modifying the ad code. Provide load conditions for responsive layouts using the ad container's dimensions, or a media query.
+Deliver synchronous ads asynchronously without modifying the ad code. Conditionally load ads for responsive layouts using the ad container's dimensions, or a media query.
 
 
 ## The problem
