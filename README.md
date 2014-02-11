@@ -32,15 +32,14 @@ Once minified & gzipped the script weighs in at ~6.5KB.
 This asynchronous approach to loading ads also provides a fair performance boost for the page content as `document.write` is no longer blocking rendering. This performance bottleneck has been [widely documented](http://www.stevesouders.com/blog/2012/04/10/dont-docwrite-scripts/), yet ad providers continue to use the technique.
 
 
-## Usage
+## Basic usage
 Load the script in the html head.
 ``` html
   <script src="../path_to/lazyad-loader.min.js"></script>
 ```
 
-Wrap the ad script to prevent it from running inline. The `data-lazyad` attribute is a required hook. In the following basic example the ad will always be loaded.
+Wrap the ad script to prevent it from running inline. The `data-lazyad` attribute is a required hook.
 
-**Note: the HTML comments wrapping the ad script are required to prevent the ads closing `</script>` tag from closing our `text/lazyad` wrapper prematurely.**
 ``` html
   <!-- wrap all ad scripts in a lazyad div & lazyad script  -->
   <div class="ad" data-lazyad>
@@ -52,9 +51,11 @@ Wrap the ad script to prevent it from running inline. The `data-lazyad` attribut
   </div>
 ```
 
-## Adding criteria
+**Note: the HTML comments wrapping the ad script are required to prevent the ads closing `</script>` tag from closing our `text/lazyad` wrapper prematurely.**
+
+## Adding conditions
 #### Container dimensions 
-This ad will only load if the div container is at least 728 x 90 (leaderboard) on load.
+This ad will only load if the div container is at least 728px x 90px (leaderboard) on load.
 ``` html
   <!-- wrap all ad scripts in a lazyad div & lazyad script  -->
   <div class="ad" data-lazyad data-adwidth="728" data-adheight="90">
@@ -67,7 +68,7 @@ This ad will only load if the div container is at least 728 x 90 (leaderboard) o
 ```
 
 #### Media Query 
-This ad will only load if the viewport is a screen & at least 800px wide at load.
+This ad will only load if the viewport is a screen & at least 800px wide on load.
 ``` html
   <!-- wrap all ad scripts in a lazyad div & lazyad script  -->
   <div class="ad" data-lazyad data-matchmedia="only screen and (min-width: 800px)">
