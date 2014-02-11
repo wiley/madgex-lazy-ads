@@ -29,6 +29,8 @@ The lazy ads loader sits on top of a couple of polyfills & tried and tested open
 * [Media.match](https://github.com/weblinc/media-match) media queries polyfill for older browsers.
 * [domReady](https://github.com/ded/domready) a tiny, sturdy DOMReady implementaiton for older browsers.
 
+Once minified & gzipped the script weighs in ~6.5KB.
+
 ## An added benefit - performance
 This asynchronous approach to loading ads also provides a fair performance boost for the page content as `document.write` is no longer blocking rendering. This performance bottleneck has been [widely documented](http://www.stevesouders.com/blog/2012/04/10/dont-docwrite-scripts/) yet ad providers continue to use the technique.
 
