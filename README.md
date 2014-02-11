@@ -46,7 +46,7 @@ Wrap the ad script to prevent it from running inline. The `data-lazyad` attribut
 **Note**: the HTML comments wrapping the ad script are required to prevent the ads closing `</script>` tag from closing our `text/lazyad` wrapper prematurely.
 ``` html
   <!-- wrap all ad scripts in a lazyad div & lazyad script  -->
-  <div class="ad ad--leaderboard" data-lazyad>
+  <div class="ad" data-lazyad>
     <script type="text/lazyad">
       <!-- Ad script -->
     </script>
@@ -58,7 +58,7 @@ Wrap the ad script to prevent it from running inline. The `data-lazyad` attribut
 This ad will only load if the div container is at least 728 x 90 (leaderboard) on load.
 ``` html
   <!-- wrap all ad scripts in a lazyad div & lazyad script  -->
-  <div class="ad ad--leaderboard" data-lazyad data-adwidth="728" data-adheight="90">
+  <div class="ad" data-lazyad data-adwidth="728" data-adheight="90">
     <script type="text/lazyad">
       <!-- Ad script -->
     </script>
