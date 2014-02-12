@@ -93,7 +93,7 @@ git clone https://github.com/madgex/lazy-ads.git
 ```
 CD into the directory
 ```bash
-cd laz-ads
+cd lazy-ads
 ```
 Run `grunt` to create the distribution packages in the `dist/` directory
 ```bash
