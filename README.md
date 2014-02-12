@@ -5,19 +5,19 @@ Deliver synchronous ads asynchronously without modifying the ad code. Conditiona
 
 
 ## The problem
-Ads have long been the elephant in the room in regards to Responsive web design, with few providers supporting the fluid, flexible layouts that come with responsive sites. Here at [Madgex](http://madgex.com/) we deal with over 30 ad providers & many show no signs of supporting responsive layouts, so we've taken the matter into our own hands.
+Ads have long been the elephant in the room in regards to Responsive Web Design, with few providers supporting the fluid, flexible layouts that define responsive websites. Here at [Madgex](http://madgex.com/) we deal with over 30 ad providers and many show no signs of supporting responsive layouts.
 
 ##### Approach 1 - Hide the ad container using CSS
-It's trivially simple to hide the ad using CSS if a media query condition is met. However, this doesn't prevent the ad code from executing, therefore an ad 'hit' is recorded even though the ad may never be seen. There will also be potentially pointless network round-trips to load the ad content. This is detrimental to the site's speed and performance, especially on a mobile device.
+It's trivially simple to hide the ad using CSS if a media query condition is met. However, this doesn't prevent the ad code from executing. An ad impression is still recorded, even if the ad isn't actually visible. Furthermore, potentially pointless network round-trips to load the ad content would still take place. This is detrimental to the site's speed and performance, especially on a mobile device.
 
-##### Approach 2 - Make the ads fluid
-Scaling images / flash ads with a flexible layout will quickly create illegible ads.
+##### Approach 2 - Force the ads to be flexible
+Forcing images or flash objects to be flexible quickly creates illegible ads on small screened devices. Furthermore, some ad providers wrap ads in multiple layers of unsemantic, inline pixel width defined elements. These can be difficult (or highly brittle, or outright impossible) to make flexible.
 
 ##### Approach 3 - Wait for ad providers
 Seeing as most ad providers are still using the 90's-web `document.write` as a delivery technique, we're not holding our breath.
 
 ## Our proposed approach
-Leave ads scripts intact but wrap them to prevent execution inline. On the wrapper (optionally) place a criteria for loading, using either dimension requirements or a media query. Then on DOMready, lazily inject the ads if the criteria is met.
+Leave ads scripts intact, but wrap them to prevent inline execution. Place load criteria on the element wrapping the ad, either using dimensions, or a media query. On DOMready, [lazily](http://en.wikipedia.org/wiki/Lazy_loading) inject the ads if the criteria is met.
 
 #### Putting it all together
 The lazy ads loader sits on top of a couple of polyfills & tried and tested open source projects:
