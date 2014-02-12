@@ -80,6 +80,26 @@ This ad will only load if the viewport is a screen & at least 800px wide on load
   </div>
 ```
 
+## How to build
+You need to have [Node.js](http://nodejs.org/download/) & NPM installed before you start.
+
+If you don't have the Grunt command line interface, install it as a global package
+```bash
+npm install -g grunt-cli
+```
+Clone the lazy-ads repo
+```bash
+git clone https://github.com/madgex/lazy-ads.git
+```
+CD into the directory
+```bash
+cd laz-ads
+```
+Run `grunt` to create the distribution packages in the `dist/` directory
+```bash
+grunt
+```
+
 
 ## Feedback
 Although we've had initial success in this approach we're keen to hear your [feedback](https://github.com/madgex/lazy-ads/issues/new).
