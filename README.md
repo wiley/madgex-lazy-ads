@@ -80,6 +80,9 @@ This ad will only load if the viewport is a screen & at least 800px wide on load
   </div>
 ```
 
+## Support
+IE7 and up, and modern browsers (Chrome, FF, Opera etc).
+
 ## How to build
 You need to have [Node.js](http://nodejs.org/download/) & NPM installed before you start.
 
