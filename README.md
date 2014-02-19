@@ -33,9 +33,9 @@ This asynchronous approach to loading ads also provides a fair performance boost
 
 
 ## Basic usage
-Load the script in the html head.
+Load the script.
 ``` html
-  <script src="../path_to/lazyad-loader.min.js"></script>
+  <script src="../path_to/lazyad-loader.min.js" async></script>
 ```
 
 Wrap the ad script to prevent it from running inline. The `data-lazyad` attribute is a required hook.
