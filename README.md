@@ -45,7 +45,7 @@ Wrap the ad script to prevent it from running inline. The `data-lazyad` attribut
   <div class="ad" data-lazyad>
     <script type="text/lazyad">
       <!--
-        ADSCRIPT
+        ADSCRIPT (including wrapping <script> tag)
       -->
     </script>
   </div>
@@ -61,7 +61,7 @@ This ad will only load if the div container is at least 728px x 90px (leaderboar
   <div class="ad" data-lazyad data-adwidth="728" data-adheight="90">
     <script type="text/lazyad">
       <!--
-        ADSCRIPT
+        ADSCRIPT (including wrapping <script> tag)
       -->
     </script>
   </div>
@@ -74,7 +74,7 @@ This ad will only load if the viewport is a screen & at least 800px wide on load
   <div class="ad" data-lazyad data-matchmedia="only screen and (min-width: 800px)">
     <script type="text/lazyad">
       <!--
-        ADSCRIPT
+        ADSCRIPT (including wrapping <script> tag)
       -->
     </script>
   </div>
