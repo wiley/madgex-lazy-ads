@@ -22,9 +22,13 @@ module.exports = function(grunt) {
         },
         uglify: {
             options: {
-                banner: '<%= concat.options.banner %>'
+                banner: '<%= concat.options.banner %>',
             },
             prod: {
+                options: {
+                    sourceMap: true,
+                    // sourceMapName: 'dist/lazyads-loader.min.js'
+                },
                 files: {
                     'dist/<%= pkg.name %>.min.js': ['<%= concat.files.dest %>']
                 }
