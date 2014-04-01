@@ -1,0 +1,20 @@
+{
+    "name": "lazy-ads",
+    "version": "1.0.0",
+    "homepage": "https://github.com/madgex/lazy-ads",
+    "authors": [
+        "James Wragg <me@jameswragg.com>"
+    ],
+    "description": "lazy-load ads for responsive sites without messing with the ad code.",
+    "main": "dist/lazyads-loader.min.js",
+    "moduleType": [
+        "globals"
+    ],
+    "keywords": [
+        "RWD",
+        "responsive",
+        "ads",
+        "async"
+    ],
+    "license": "MIT"
+}

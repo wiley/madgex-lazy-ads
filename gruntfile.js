@@ -5,15 +5,18 @@ module.exports = function(grunt) {
         clean: ['dist/*'],
         concat: {
             options: {
-                separator: ';',
+                separator: ';\n\n',
                 banner: '/**\n' +
                     '* <%= pkg.name %>\n' +
                     '* <%= pkg.description %>\n' +
                     '* Madgex. Build date: <%= grunt.template.today("dd-mm-yyyy") %>\n' +
                     '*/\n\n'
             },
-            vanilla: {
-                src: ['src/libs/*.js', 'src/lazyad-loader.js'],
+            files: {
+                src: [
+                    'src/libs/*.js',
+                    'src/lazyads-loader.js'
+                ],
                 dest: 'dist/<%= pkg.name %>.js'
             }
         },
@@ -21,12 +24,9 @@ module.exports = function(grunt) {
             options: {
                 banner: '<%= concat.options.banner %>'
             },
-            vanilla: {
-                options: {
-                    banner: '<%= uglify.options.banner %>',
-                },
+            prod: {
                 files: {
-                    'dist/<%= pkg.name %>-min.js': ['<%= concat.vanilla.dest %>']
+                    'dist/<%= pkg.name %>.min.js': ['<%= concat.files.dest %>']
                 }
             }
         },

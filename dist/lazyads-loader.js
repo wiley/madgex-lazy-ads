@@ -1,7 +1,7 @@
 /**
-* lazyad-loader
-* Conditionally load ads after the page has rendered.
-* Madgex. Build date: 20-01-2014
+* lazyads-loader
+* lazy-load ads for responsive sites without messing with the ad code.
+* Madgex. Build date: 01-04-2014
 */
 
 // An html parser written in JavaScript
@@ -361,7 +361,9 @@
 
   this.htmlParser = htmlParser;
 })();
-;/**
+;
+
+/**
  * lifted from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
  * polyfill needed for IE <= 7
  */
@@ -394,7 +396,9 @@ if (!Array.prototype.indexOf) {
 
         return -1;
     };
-};/* MediaMatch v.2.0.2 - Testing css media queries in Javascript. Authors & copyright (c) 2013: WebLinc, David Knight. */
+};
+
+/* MediaMatch v.2.0.2 - Testing css media queries in Javascript. Authors & copyright (c) 2013: WebLinc, David Knight. */
 
 window.matchMedia || (window.matchMedia = function (win) {
     'use strict';
@@ -718,7 +722,9 @@ window.matchMedia || (window.matchMedia = function (win) {
 
         return mql;
     };
-}(window));;//     postscribe.js 1.1.2
+}(window));;
+
+//     postscribe.js 1.1.2
 //     (c) Copyright 2012 to the present, Krux
 //     postscribe is freely distributable under the MIT license.
 //     For all details and documentation:
@@ -1329,7 +1335,9 @@ window.matchMedia || (window.matchMedia = function (win) {
     // export postscribe
     global.postscribe = postscribe;
 
-}());;/*!
+}());;
+
+/*!
   * domready (c) Dustin Diaz 2012 - License MIT
   */
 !function (name, definition) {
@@ -1384,139 +1392,168 @@ window.matchMedia || (window.matchMedia = function (win) {
       loaded ? fn() : fns.push(fn)
     })
 })
-;(function() {
+;
 
-    var debug = true;
+    (function() {
 
-    var config = {
-        containerElement: 'div',
-        containerClass: 'ad'
-    };
+        var debug = true;
 
-    var counter = 0,
-        hasjQuery = (window.jQuery || window.jQuery) ? true : false;
+        var config = {
+            containerElement: 'script',
+            // containerClass: 'ad'
+        };
 
+        var counter = 0,
+            startTime = new Date().getTime(),
+            hasjQuery = (window.jQuery || window.Zepto) ? true : false;
 
-    function log() {
-        if (debug === true && window.console) {
-            // Only run on the first time through - reset this function to the appropriate console.log helper
-            if (Function.prototype.bind) {
-                log = Function.prototype.bind.call(console.log, console);
-            } else {
-                log = function() {
-                    Function.prototype.apply.call(console.log, console, arguments);
-                };
+        window.LazyAds = LazyAds = {};
+
+        console.time("lazyAds");
+
+        function log() {
+            if (debug === true && window.console) {
+                // Only run on the first time through - reset this function to the appropriate console.log helper
+                if (Function.prototype.bind) {
+                    log = Function.prototype.bind.call(console.log, console);
+                } else {
+                    log = function() {
+                        Function.prototype.apply.call(console.log, console, arguments);
+                    };
+                }
+
+                log.apply(this, arguments);
+            }
+        }
+
+        LazyAds.find = function(tagName, className, context) {
+            var results = [],
+                selector, node, i, isLazyAd, classListSupported, querySelectorSupported,
+                context = context || document;
+
+            if (hasjQuery === true) {
+                log('Using jquery')
+                return $(context).find(tagname + '.' + className);
             }
 
-            log.apply(this, arguments);
-        }
-    }
-
-    function find(tagName, className, context) {
-        var results = [],
-            selector, node, i, isLazyAd,
-            context = context || document,
             classListSupported = 'classList' in document.createElement("_"),
             querySelectorSupported = 'querySelectorAll' in document;
 
+            if (querySelectorSupported) {
+                selector = tagName;
+                selector += className ? '.' + className : '';
+                results = context.querySelectorAll(selector);
 
-        if (querySelectorSupported) {
-            selector = tagName;
-            selector += className ? '.' + className : '';
-            results = context.querySelectorAll(selector);
+            } else {
+                q = context.getElementsByTagName(tagName);
 
-        } else {
-            q = context.getElementsByTagName(tagName);
-
-            for (i = 0; i < q.length; i++) {
-                node = q[i];
-                if (className === false) {
-                    results.push(node);
-                } else {
-                    if (classListSupported) {
-                        if (node.classList.contains(className)) {
-                            results.push(node);
-                        }
+                for (i = 0; i < q.length; i++) {
+                    node = q[i];
+                    if (className === false) {
+                        results.push(node);
                     } else {
-                        if (node.className && node.className.split(/\s/).indexOf(className) !== -1) {
-                            results.push(node);
+                        if (classListSupported) {
+                            if (node.classList.contains(className)) {
+                                results.push(node);
+                            }
+                        } else {
+                            if (node.className && node.className.split(/\s/).indexOf(className) !== -1) {
+                                results.push(node);
+                            }
                         }
                     }
                 }
             }
+
+            return results;
         }
 
-        return results;
-    }
+        LazyAds.findAdContainers = function(root) {
+            var containers = LazyAds.find(config.containerElement, config.containerClass),
+                node,
+                isLazyAd,
+                results = [];
 
-    function findAdContainers(root) {
-        var containers = find(config.containerElement, config.containerClass),
-            node,
-            results = [];
-
-        for (var i = 0; i < containers.length; i++) {
-            node = containers[i];
-            isLazyAd = (node.getAttribute('data-lazyad') !== null);
-            if (isLazyAd) results.push(node);
-        }
-
-        return results;
-    }
-
-    function findAdScripts(root) {
-        var ads = find('script', false, root),
-            node,
-            type,
-            results = [];
-
-        for (var i = 0; i < ads.length; i++) {
-            node = ads[i];
-            type = node.getAttribute('type');
-            if (type && type === 'text/lazyad') {
-                results.push(node);
+            for (var i = 0; i < containers.length; i++) {
+                node = containers[i];
+                isLazyAd = (node.getAttribute('data-lazyad') !== null);
+                if (isLazyAd) results.push(node);
             }
+
+            return results;
         }
 
-        return results;
-    }
+        LazyAds.findAdScripts = function(root) {
+            var ads = find('script', false, root),
+                node,
+                type,
+                results = [];
 
-    function stripCommentBlock(str) {
-        return str.replace('<!--', '').replace('-->', '');
-    }
+            for (var i = 0; i < ads.length; i++) {
+                node = ads[i];
+                type = node.getAttribute('type');
+                if (type && type === 'text/lazyad') {
+                    results.push(node);
+                }
+            }
 
-    function adReplace(el, text) {
-        log('Injecting lazy-loaded Ad', el);
-        postscribe(el, stripCommentBlock(text));
-        counter++;
-    }
+            return results;
+        }
 
-    function processAll(adContainers) {
+        LazyAds.stripCommentBlock = function(str) {
+            // trim whitespace
+            str = str.replace(/^\s+|\s+$/g, '');
+            return str.replace('<!--', '').replace('-->', '');
+        }
 
-        var el,
-            lazyAdEl,
-            lazyAdElType,
-            elWidth,
-            elHeight,
-            reqAdWidth,
-            reqAdHeight,
-            mq,
-            sizeReqFulfilled;
+        LazyAds.adReplace = function(el, text) {
+            var node, target;
 
-        for (var x = 0; x < adContainers.length; x++) {
+            log('Injecting lazy-loaded Ad', el);
 
-            el = adContainers[x];
-            mq = el.getAttribute('data-matchmedia') || false;
-            reqAdWidth = parseInt(el.getAttribute('data-adwidth')) || false;
-            reqAdHeight = parseInt(el.getAttribute('data-adheight')) || false;
-            adScripts = findAdScripts(el);
+            text = LazyAds.stripCommentBlock(text);
+
+            // create & append injected node
+            node = document.createElement('div');
+            node.className = 'lazy-ad-injected';
+            target = el.parentNode.appendChild(node);
+
+            debugger;
+
+            // async js
+            postscribe(target, text);
+            counter++;
+        }
+
+        LazyAds.processAll = function(adContainers) {
+
+            var el,
+                parentEl,
+                lazyAdEl,
+                lazyAdElType,
+                elWidth,
+                elHeight,
+                reqAdWidth,
+                reqAdHeight,
+                mq,
+                sizeReqFulfilled;
+            debugger
+            for (var x = 0; x < adContainers.length; x++) {
+
+                el = adContainers[x];
+                parentEl = el.parentNode;
+                mq = el.getAttribute('data-matchmedia') || false;
+                reqAdWidth = parseInt(el.getAttribute('data-adwidth')) || false;
+                reqAdHeight = parseInt(el.getAttribute('data-adheight')) || false;
+                // adScripts = findAdScripts(el);
 
 
-            for (var i = 0; i < adScripts.length; i++) {
-                lazyAdEl = adScripts[i];
+                // for (var i = 0; i < adScripts.length; i++) {
+                lazyAdEl = el;
 
                 if (reqAdWidth || reqAdHeight) {
-                    elWidth = el.offsetWidth;
-                    elHeight = el.offsetHeight;
+                    elWidth = parentEl.offsetWidth;
+                    elHeight = parentEl.offsetHeight;
                     sizeReqFulfilled = true;
 
                     if (reqAdWidth && (reqAdWidth > elWidth)) sizeReqFulfilled = false;
@@ -1533,32 +1570,37 @@ window.matchMedia || (window.matchMedia = function (win) {
                     break;
                 }
 
-                adReplace(el, lazyAdEl.innerHTML);
+                LazyAds.adReplace(el, lazyAdEl.innerHTML);
+
+                // }
 
             }
-
-        }
-    }
-
-    function init() {
-        log('Lazyad init. Using jQuery/Zepto: ' + hasjQuery);
-
-        var adContainers;
-
-        // find all lazyads
-        adContainers = findAdContainers();
-
-        if (adContainers && adContainers.length > 0) {
-            processAll(adContainers);
         }
 
-        // finished
-        log('Lazy-loaded count: ', counter);
-    }
+        LazyAds.init = function() {
+            log('Lazyad init. Using jQuery/Zepto: ' + hasjQuery);
 
-    // dependency on ready.js
-    domready(function() {
-        init();
-    });
+            var adContainers,
+                timeToComplete;
 
-})();
+            // find all lazyads
+            adContainers = LazyAds.findAdContainers();
+
+            if (adContainers && adContainers.length) {
+                LazyAds.processAll(adContainers);
+            }
+
+            timeToComplete = (new Date().getTime() - startTime);
+            timeToComplete = '~' + timeToComplete + 'ms';
+
+            // finished
+            log('Lazy-loaded count: ', counter, timeToComplete);
+            console.timeEnd("lazyAds");
+        }
+
+        // dependency on ready.js
+        domready(function() {
+            LazyAds.init();
+        });
+
+    })();
