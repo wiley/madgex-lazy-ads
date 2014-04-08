@@ -1,7 +1,7 @@
 /**
 * lazyad-loader
 * Conditionally load ads after the page has rendered.
-* Madgex. Build date: 07-04-2014
+* Madgex. Build date: 08-04-2014
 */
 
 // An html parser written in JavaScript
@@ -1393,10 +1393,17 @@ window.matchMedia || (window.matchMedia = function (win) {
         containerClass: 'ad'
     };
 
-    var counter = 0,
-        hasjQuery = (window.jQuery || window.jQuery) ? true : false;
+    var counter,
+        startTime,
+        eventsBound = false,
+        hasjQuery = (window.jQuery || window.Zepto) ? true : false;
 
 
+
+    // Global object
+    window.LazyAds = LazyAds = {};
+
+    // Utility functions
     function log() {
         if (debug === true && window.console) {
             // Only run on the first time through - reset this function to the appropriate console.log helper
@@ -1412,13 +1419,71 @@ window.matchMedia || (window.matchMedia = function (win) {
         }
     }
 
-    function find(tagName, className, context) {
-        var results = [],
-            selector, node, i, isLazyAd,
-            context = context || document,
-            classListSupported = 'classList' in document.createElement("_"),
-            querySelectorSupported = 'querySelectorAll' in document;
+    ''.trim || (String.prototype.trim = // Use the native method if available, otherwise define a polyfill:
+        function() { // trim returns a new string (which replace supports)
+            return this.replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '') // trim the left and right sides of the string
+        });
 
+    function debounce(func, wait) {
+        // we need to save these in the closure
+        var timeout, args, context, timestamp;
+
+        return function() {
+
+            // save details of latest call
+            context = this;
+            args = [].slice.call(arguments, 0);
+            timestamp = new Date();
+
+            // this is where the magic happens
+            var later = function() {
+
+                // how long ago was the last call
+                var last = (new Date()) - timestamp;
+
+                // if the latest call was less that the wait period ago
+                // then we reset the timeout to wait for the difference
+                if (last < wait) {
+                    timeout = setTimeout(later, wait - last);
+
+                    // or if not we can null out the timer and run the latest
+                } else {
+                    timeout = null;
+                    func.apply(context, args);
+                }
+            };
+
+            // we only need to set the timer now if one isn't already running
+            if (!timeout) {
+                timeout = setTimeout(later, wait);
+            }
+        }
+    }
+
+    function addEvent(evnt, elem, func) {
+        if (elem.addEventListener) // W3C DOM
+            elem.addEventListener(evnt, func, false);
+        else if (elem.attachEvent) { // IE DOM
+            elem.attachEvent("on" + evnt, func);
+        } else { // No much to do
+            elem["on" + evnt] = func;
+        }
+    }
+
+
+    // Internals
+    var find = function(tagName, className, context) {
+        var results = [],
+            selector, node, i, isLazyAd, classListSupported, querySelectorSupported,
+            context = context || document;
+
+        if (hasjQuery === true) {
+            log('Using jquery')
+            return $(context).find(tagname + '.' + className);
+        }
+
+        classListSupported = 'classList' in document.createElement("_"),
+        querySelectorSupported = 'querySelectorAll' in document;
 
         if (querySelectorSupported) {
             selector = tagName;
@@ -1447,23 +1512,28 @@ window.matchMedia || (window.matchMedia = function (win) {
         }
 
         return results;
-    }
+    };
 
-    function findAdContainers(root) {
+    var findAdContainers = function(root) {
         var containers = find(config.containerElement, config.containerClass),
             node,
+            isLazyAd = false,
+            isLoaded = false,
             results = [];
 
         for (var i = 0; i < containers.length; i++) {
             node = containers[i];
             isLazyAd = (node.getAttribute('data-lazyad') !== null);
-            if (isLazyAd) results.push(node);
+            isLoaded = (node.getAttribute('data-lazyad-loaded') === "true");
+            if (isLazyAd && isLoaded === false) {
+                results.push(node);
+            }
         }
 
         return results;
-    }
+    };
 
-    function findAdScripts(root) {
+    var findAdScripts = function(root) {
         var ads = find('script', false, root),
             node,
             type,
@@ -1478,21 +1548,33 @@ window.matchMedia || (window.matchMedia = function (win) {
         }
 
         return results;
-    }
+    };
 
-    function stripCommentBlock(str) {
-        return str.replace('<!--', '').replace('-->', '');
-    }
+    var stripCommentBlock = function(str) {
+        // trim whitespace
+        str = str.replace(/^\s+|\s+$/g, '');
+        return str.replace('<!--', '').replace('-->', '').trim();
+    };
 
-    function adReplace(el, text) {
+    var adReplace = function(el, text) {
+        var node, target;
+
         log('Injecting lazy-loaded Ad', el);
-        postscribe(el, stripCommentBlock(text));
-        counter++;
-    }
 
-    function processAll(adContainers) {
+        text = stripCommentBlock(text);
+        setTimeout(function() {
+            postscribe(el, text);
+        }, 0);
+
+        // set the loaded flag
+        el.setAttribute('data-lazyad-loaded', true);
+        counter++;
+    };
+
+    var processAll = function(adContainers) {
 
         var el,
+            adScripts,
             lazyAdEl,
             lazyAdElType,
             elWidth,
@@ -1506,10 +1588,9 @@ window.matchMedia || (window.matchMedia = function (win) {
 
             el = adContainers[x];
             mq = el.getAttribute('data-matchmedia') || false;
-            reqAdWidth = parseInt(el.getAttribute('data-adwidth')) || false;
-            reqAdHeight = parseInt(el.getAttribute('data-adheight')) || false;
+            reqAdWidth = parseInt(el.getAttribute('data-adwidth'), 0) || false;
+            reqAdHeight = parseInt(el.getAttribute('data-adheight'), 0) || false;
             adScripts = findAdScripts(el);
-
 
             for (var i = 0; i < adScripts.length; i++) {
                 lazyAdEl = adScripts[i];
@@ -1523,13 +1604,13 @@ window.matchMedia || (window.matchMedia = function (win) {
                     if (reqAdHeight && (reqAdHeight > elHeight)) sizeReqFulfilled = false;
 
                     if (sizeReqFulfilled === false) {
-                        log('Lazy-loaded container dimensions fulfilment not met.', reqAdWidth, reqAdHeight, elWidth, elHeight, el, lazyAdEl);
+                        // log('Lazy-loaded container dimensions fulfilment not met.', reqAdWidth, reqAdHeight, elWidth, elHeight, el, lazyAdEl);
                         break;
                     }
                 }
 
                 if (mq !== false && matchMedia(mq).matches === false) {
-                    log('Lazy-loaded Ad media-query fulfilment not met.', el, lazyAdEl);
+                    // log('Lazy-loaded Ad media-query fulfilment not met.', el, lazyAdEl);
                     break;
                 }
 
@@ -1538,12 +1619,28 @@ window.matchMedia || (window.matchMedia = function (win) {
             }
 
         }
-    }
+    };
 
-    function init() {
+    // Expose init method
+    LazyAds.init = function() {
+        var adContainers,
+            timeToComplete;
+
+        // reset replaced nodes counter
+        counter = 0;
+
+        // reset timer
+        startTime = new Date().getTime();
+
         log('Lazyad init. Using jQuery/Zepto: ' + hasjQuery);
 
-        var adContainers;
+        if (eventsBound === false) {
+            // watch the resize event
+            addEvent('resize', window, debounce(function(e) {
+                LazyAds.init();
+            }, 250));
+            eventsBound = true;
+        }
 
         // find all lazyads
         adContainers = findAdContainers();
@@ -1552,13 +1649,16 @@ window.matchMedia || (window.matchMedia = function (win) {
             processAll(adContainers);
         }
 
+        timeToComplete = (new Date().getTime() - startTime);
+        timeToComplete = '~' + timeToComplete + 'ms';
+
         // finished
-        log('Lazy-loaded count: ', counter);
-    }
+        log('Lazy-loaded count: ', counter, timeToComplete);
+    };
 
     // dependency on ready.js
     domready(function() {
-        init();
+        LazyAds.init();
     });
 
 })();
