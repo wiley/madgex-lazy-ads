@@ -30,31 +30,32 @@ module.exports = function(grunt) {
                 }
             }
         },
-        jshint: {
-            files: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js'],
+        watch: {
+            files: ['Gruntfile.js', 'src/**/*.js', 'tests/**/*'],
+            tasks: ['concat'],
             options: {
-                // options here to override JSHint defaults
-                globals: {
-                    jQuery: true,
-                    console: true,
-                    module: true,
-                    document: true
-                }
+                livereload: true
             }
         },
-        watch: {
-            files: ['<%= jshint.files %>'],
-            tasks: ['concat', 'uglify']
+        connect: {
+            server: {
+                options: {
+                    open: true,
+                    port: 9000,
+                    hostname: '*',
+                    livereload: true,
+                }
+            }
         }
     });
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-connect');
 
-    grunt.registerTask('test', ['jshint']);
+    grunt.registerTask('test', ['connect', 'watch']);
 
     grunt.registerTask('default', ['clean', 'concat', 'uglify']);
 
