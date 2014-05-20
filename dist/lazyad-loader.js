@@ -1,7 +1,7 @@
 /**
 * lazyad-loader
 * Conditionally load ads after the page has rendered.
-* Madgex. Build date: 08-04-2014
+* Madgex. Build date: 20-05-2014
 */
 
 // An html parser written in JavaScript
@@ -1393,17 +1393,23 @@ window.matchMedia || (window.matchMedia = function (win) {
         containerClass: 'ad'
     };
 
-    var counter,
-        startTime,
-        eventsBound = false,
+    var startTime,
         hasjQuery = (window.jQuery || window.Zepto) ? true : false;
-
 
 
     // Global object
     window.LazyAds = LazyAds = {};
 
-    // Utility functions
+
+
+    /**
+     * Utility functions
+     *
+     */
+    ''.trim || (String.prototype.trim = function() {
+        return this.replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '');
+    });
+
     function log() {
         if (debug === true && window.console) {
             // Only run on the first time through - reset this function to the appropriate console.log helper
@@ -1419,11 +1425,7 @@ window.matchMedia || (window.matchMedia = function (win) {
         }
     }
 
-    ''.trim || (String.prototype.trim = // Use the native method if available, otherwise define a polyfill:
-        function() { // trim returns a new string (which replace supports)
-            return this.replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '') // trim the left and right sides of the string
-        });
-
+    // Debounce source: https://github.com/rhysbrettbowen/debounce
     function debounce(func, wait) {
         // we need to save these in the closure
         var timeout, args, context, timestamp;
@@ -1457,7 +1459,7 @@ window.matchMedia || (window.matchMedia = function (win) {
             if (!timeout) {
                 timeout = setTimeout(later, wait);
             }
-        }
+        };
     }
 
     function addEvent(evnt, elem, func) {
@@ -1518,14 +1520,13 @@ window.matchMedia || (window.matchMedia = function (win) {
         var containers = find(config.containerElement, config.containerClass),
             node,
             isLazyAd = false,
-            isLoaded = false,
             results = [];
 
         for (var i = 0; i < containers.length; i++) {
             node = containers[i];
             isLazyAd = (node.getAttribute('data-lazyad') !== null);
-            isLoaded = (node.getAttribute('data-lazyad-loaded') === "true");
-            if (isLazyAd && isLoaded === false) {
+
+            if (isLazyAd === true) {
                 results.push(node);
             }
         }
@@ -1568,12 +1569,12 @@ window.matchMedia || (window.matchMedia = function (win) {
 
         // set the loaded flag
         el.setAttribute('data-lazyad-loaded', true);
-        counter++;
     };
 
     var processAll = function(adContainers) {
 
-        var el,
+        var counter = 0,
+            el,
             adScripts,
             lazyAdEl,
             lazyAdElType,
@@ -1582,7 +1583,8 @@ window.matchMedia || (window.matchMedia = function (win) {
             reqAdWidth,
             reqAdHeight,
             mq,
-            sizeReqFulfilled;
+            sizeReqFulfilled,
+            isLoaded;
 
         for (var x = 0; x < adContainers.length; x++) {
 
@@ -1595,6 +1597,9 @@ window.matchMedia || (window.matchMedia = function (win) {
             for (var i = 0; i < adScripts.length; i++) {
                 lazyAdEl = adScripts[i];
 
+                isLoaded = (el.getAttribute('data-lazyad-loaded') === "true");
+
+
                 if (reqAdWidth || reqAdHeight) {
                     elWidth = el.offsetWidth;
                     elHeight = el.offsetHeight;
@@ -1605,50 +1610,71 @@ window.matchMedia || (window.matchMedia = function (win) {
 
                     if (sizeReqFulfilled === false) {
                         // log('Lazy-loaded container dimensions fulfilment not met.', reqAdWidth, reqAdHeight, elWidth, elHeight, el, lazyAdEl);
+                        if (isLoaded) {
+                            unloadAds(el);
+                        }
                         break;
                     }
                 }
 
                 if (mq !== false && matchMedia(mq).matches === false) {
                     // log('Lazy-loaded Ad media-query fulfilment not met.', el, lazyAdEl);
+                    if (isLoaded) {
+                        unloadAds(el);
+                    }
                     break;
                 }
 
-                adReplace(el, lazyAdEl.innerHTML);
+                if (!isLoaded) {
+                    adReplace(el, lazyAdEl.innerHTML);
+                    counter++;
+                }
 
             }
 
         }
+
+        return counter;
     };
+
+    var unloadAds = function(el) {
+        log('Unloading Ad:', el);
+        var childNodes = el.getElementsByTagName('*');
+
+        while (childNodes) {
+            var child = childNodes[childNodes.length - 1];
+            if (child.nodeName.toLowerCase() === 'script' && child.type === 'text/lazyad') {
+                // dont want to remove the lazy-loaded script
+                break;
+            } else {
+                child.parentNode.removeChild(child);
+            }
+        }
+
+        el.setAttribute('data-lazyad-loaded', "false");
+    }
 
     // Expose init method
     LazyAds.init = function() {
         var adContainers,
-            timeToComplete;
+            timeToComplete,
+            counter = 0;
 
-        // reset replaced nodes counter
-        counter = 0;
+
+        log('Lazyad init. Using jQuery/Zepto: ' + hasjQuery);
 
         // reset timer
         startTime = new Date().getTime();
 
-        log('Lazyad init. Using jQuery/Zepto: ' + hasjQuery);
-
-        if (eventsBound === false) {
-            // watch the resize event
-            addEvent('resize', window, debounce(function(e) {
-                LazyAds.init();
-            }, 250));
-            eventsBound = true;
-        }
-
         // find all lazyads
         adContainers = findAdContainers();
 
+        // process/replace/unload
         if (adContainers && adContainers.length > 0) {
-            processAll(adContainers);
+            counter = processAll(adContainers);
         }
 
+        // stop the clock…
         timeToComplete = (new Date().getTime() - startTime);
         timeToComplete = '~' + timeToComplete + 'ms';
 
@@ -1658,6 +1684,12 @@ window.matchMedia || (window.matchMedia = function (win) {
 
     // dependency on ready.js
     domready(function() {
+
+        // watch the windows resize event
+        addEvent('resize', window, debounce(function(e) {
+            LazyAds.init();
+        }, 250));
+
         LazyAds.init();
     });
 
