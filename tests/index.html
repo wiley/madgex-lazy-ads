@@ -1,38 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!--[if IE 7 ]>
-<style>* { behavior: url("../src/libs/boxsizing.htc"); zoom: 1; }</style>
-<![endif]-->
-<script src="../dist/lazyad-loader.js" async></script>
+	<!--[if IE 7 ]>
+	<style>* { behavior: url("../src/libs/boxsizing.htc"); zoom: 1; }</style>
+	<![endif]-->
+	<meta charset=utf-8 />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<script src="../dist/lazyad-loader.js" async></script>
   
-<meta charset=utf-8 />
-<title>Lazy-ads tests</title>
-<style type="text/css">
-	body {
-		font: 14px sans-serif;
-	}
-	.ads{
-		margin: 1em 0;
-		padding: 0;
-		list-style: none;
-	}
-	.ads--item {
-		margin: 1em 1em 2em;
-		border: 2px solid orange;
-		min-height: 90px;
-	}
-	code {
-		background: hsl(43, 100%, 90.8%);
-	}
-</style>
-  
+	<title>Lazy-ads tests</title>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	<script>
+		// simple time helper
+		function currTime(){
+			var d = new Date();
+			return d.toLocaleTimeString();
+		}
+	</script>
 </head>
 <body>
 
-    <h1>lazy-ads tests</h1>
-    <h2>Container min-height 90px</h2>
-    <h2>Window dimensions: <span id="windowDimensions"></span></h2>
+    <h1>Visual tests for lazy-ads</h1>
+    <p>All ad container min-heights are 90px</p>
+    
+    <div class="dimensionsContainer">
+    	<hr>
+        <span id="windowDimensions"></span>
+    </div>
 
     <div class="ads">
     	<p>No <code>data-lazyad</code> property</p>
@@ -41,83 +36,36 @@
 
 				<!--
 				<script language="JavaScript" type="text/javascript">
-				function getCookie(c_name)
-				{
-				    var c_value = document.cookie;
-				    var c_start = c_value.indexOf(" " + c_name + "=");
-				    if (c_start == -1)
-				        {
-				            c_start = c_value.indexOf(c_name + "=");
-				        }
-				    if (c_start == -1)
-				        {
-				            c_value = null;
-				        }
-				    else
-				        {
-				            c_start = c_value.indexOf("=", c_start) + 1;
-				            var c_end = c_value.indexOf(";", c_start);
-				            if (c_end == -1)
-				                {
-				                    c_end = c_value.length;
-				                }
-				            c_value = unescape(c_value.substring(c_start,c_end));
-				        }
-				    return c_value;
-				}
-				var cipsolaudCookieValue = "";
-				if(getCookie('cip_sol_aud'))
-				    {
-				        cipsolaudCookieValue = getCookie('cip_sol_aud');
-				    }
-				if (typeof ord=='undefined') {ord=Math.random()*10000000000000000;}
-				document.write('<script language="JavaScript" src="http://ad.doubleclick.net/N3048/adj/jobs.thesun.co.uk/homepage;pos=leaderboard;tile=1;sz=728x90;' + cipsolaudCookieValue + 'ord=' + ord + '?" type="text/javascript"><\/script>');
+				document.write('<img src="http://placehold.it/320x50/ff0/000&text=Ad+Served+'+currTime()+'">');
 				</script>
-				<noscript><a href="http://ad.doubleclick.net/N3048/jump/jobs.thesun.co.uk/homepage;pos=leaderboard;tile=1;sz=728x90;ord=1937022004?" target="_blank"><img src="http://ad.doubleclick.net/N3048/ad/jobs.thesun.co.uk/homepage;pos=leaderboard;tile=1;sz=728x90;ord=1937022004?" border="0" alt=""></a></noscript>
 				-->
 
 			</script>
 		</div>
 
+		<p>LazyAd requirement <code>data-adwidth="320"</code></p>
+		<p>Mobile leaderboard</p>
+	    <div class="ad ads--item" data-lazyad data-adwidth="320">
+			<script type="text/lazyad">
+
+				<!--
+				<script language="JavaScript" type="text/javascript">
+				document.write('<img src="http://placehold.it/320x50/ff0/000&text=Ad+Served+'+currTime()+'">');
+				</script>
+				-->
+
+			</script>
+	    </div>
+
 		<p>LazyAd requirement <code>data-adwidth="728"</code></p>
+		<p>Leaderboard</p>
 	    <div class="ad ads--item" data-lazyad data-adwidth="728">
 			<script type="text/lazyad">
 
 				<!--
 				<script language="JavaScript" type="text/javascript">
-				function getCookie(c_name)
-				{
-				    var c_value = document.cookie;
-				    var c_start = c_value.indexOf(" " + c_name + "=");
-				    if (c_start == -1)
-				        {
-				            c_start = c_value.indexOf(c_name + "=");
-				        }
-				    if (c_start == -1)
-				        {
-				            c_value = null;
-				        }
-				    else
-				        {
-				            c_start = c_value.indexOf("=", c_start) + 1;
-				            var c_end = c_value.indexOf(";", c_start);
-				            if (c_end == -1)
-				                {
-				                    c_end = c_value.length;
-				                }
-				            c_value = unescape(c_value.substring(c_start,c_end));
-				        }
-				    return c_value;
-				}
-				var cipsolaudCookieValue = "";
-				if(getCookie('cip_sol_aud'))
-				    {
-				        cipsolaudCookieValue = getCookie('cip_sol_aud');
-				    }
-				if (typeof ord=='undefined') {ord=Math.random()*10000000000000000;}
-				document.write('<script language="JavaScript" src="http://ad.doubleclick.net/N3048/adj/jobs.thesun.co.uk/homepage;pos=leaderboard;tile=1;sz=728x90;' + cipsolaudCookieValue + 'ord=' + ord + '?" type="text/javascript"><\/script>');
+				document.write('<img src="http://placehold.it/728x90/ff0/000&text=Ad+Served+'+currTime()+'">');
 				</script>
-				<noscript><a href="http://ad.doubleclick.net/N3048/jump/jobs.thesun.co.uk/homepage;pos=leaderboard;tile=1;sz=728x90;ord=1937022004?" target="_blank"><img src="http://ad.doubleclick.net/N3048/ad/jobs.thesun.co.uk/homepage;pos=leaderboard;tile=1;sz=728x90;ord=1937022004?" border="0" alt=""></a></noscript>
 				-->
 
 			</script>
@@ -129,39 +77,8 @@
 
 				<!--
 				<script language="JavaScript" type="text/javascript">
-				function getCookie(c_name)
-				{
-				    var c_value = document.cookie;
-				    var c_start = c_value.indexOf(" " + c_name + "=");
-				    if (c_start == -1)
-				        {
-				            c_start = c_value.indexOf(c_name + "=");
-				        }
-				    if (c_start == -1)
-				        {
-				            c_value = null;
-				        }
-				    else
-				        {
-				            c_start = c_value.indexOf("=", c_start) + 1;
-				            var c_end = c_value.indexOf(";", c_start);
-				            if (c_end == -1)
-				                {
-				                    c_end = c_value.length;
-				                }
-				            c_value = unescape(c_value.substring(c_start,c_end));
-				        }
-				    return c_value;
-				}
-				var cipsolaudCookieValue = "";
-				if(getCookie('cip_sol_aud'))
-				    {
-				        cipsolaudCookieValue = getCookie('cip_sol_aud');
-				    }
-				if (typeof ord=='undefined') {ord=Math.random()*10000000000000000;}
-				document.write('<script language="JavaScript" src="http://ad.doubleclick.net/N3048/adj/jobs.thesun.co.uk/homepage;pos=leaderboard;tile=1;sz=728x90;' + cipsolaudCookieValue + 'ord=' + ord + '?" type="text/javascript"><\/script>');
+				document.write('<img src="http://placehold.it/728x90/ff0/000&text=Ad+Served+'+currTime()+'">');
 				</script>
-				<noscript><a href="http://ad.doubleclick.net/N3048/jump/jobs.thesun.co.uk/homepage;pos=leaderboard;tile=1;sz=728x90;ord=1937022004?" target="_blank"><img src="http://ad.doubleclick.net/N3048/ad/jobs.thesun.co.uk/homepage;pos=leaderboard;tile=1;sz=728x90;ord=1937022004?" border="0" alt=""></a></noscript>
 				-->
 
 			</script>
@@ -173,39 +90,8 @@
 
 				<!--
 				<script language="JavaScript" type="text/javascript">
-				function getCookie(c_name)
-				{
-				    var c_value = document.cookie;
-				    var c_start = c_value.indexOf(" " + c_name + "=");
-				    if (c_start == -1)
-				        {
-				            c_start = c_value.indexOf(c_name + "=");
-				        }
-				    if (c_start == -1)
-				        {
-				            c_value = null;
-				        }
-				    else
-				        {
-				            c_start = c_value.indexOf("=", c_start) + 1;
-				            var c_end = c_value.indexOf(";", c_start);
-				            if (c_end == -1)
-				                {
-				                    c_end = c_value.length;
-				                }
-				            c_value = unescape(c_value.substring(c_start,c_end));
-				        }
-				    return c_value;
-				}
-				var cipsolaudCookieValue = "";
-				if(getCookie('cip_sol_aud'))
-				    {
-				        cipsolaudCookieValue = getCookie('cip_sol_aud');
-				    }
-				if (typeof ord=='undefined') {ord=Math.random()*10000000000000000;}
-				document.write('<script language="JavaScript" src="http://ad.doubleclick.net/N3048/adj/jobs.thesun.co.uk/homepage;pos=leaderboard;tile=1;sz=728x90;' + cipsolaudCookieValue + 'ord=' + ord + '?" type="text/javascript"><\/script>');
+				document.write('<img src="http://placehold.it/728x90/ff0/000&text=Ad+Served+'+currTime()+'">');
 				</script>
-				<noscript><a href="http://ad.doubleclick.net/N3048/jump/jobs.thesun.co.uk/homepage;pos=leaderboard;tile=1;sz=728x90;ord=1937022004?" target="_blank"><img src="http://ad.doubleclick.net/N3048/ad/jobs.thesun.co.uk/homepage;pos=leaderboard;tile=1;sz=728x90;ord=1937022004?" border="0" alt=""></a></noscript>
 				-->
 
 			</script>
@@ -217,83 +103,46 @@
 
 				<!--
 				<script language="JavaScript" type="text/javascript">
-				function getCookie(c_name)
-				{
-				    var c_value = document.cookie;
-				    var c_start = c_value.indexOf(" " + c_name + "=");
-				    if (c_start == -1)
-				        {
-				            c_start = c_value.indexOf(c_name + "=");
-				        }
-				    if (c_start == -1)
-				        {
-				            c_value = null;
-				        }
-				    else
-				        {
-				            c_start = c_value.indexOf("=", c_start) + 1;
-				            var c_end = c_value.indexOf(";", c_start);
-				            if (c_end == -1)
-				                {
-				                    c_end = c_value.length;
-				                }
-				            c_value = unescape(c_value.substring(c_start,c_end));
-				        }
-				    return c_value;
-				}
-				var cipsolaudCookieValue = "";
-				if(getCookie('cip_sol_aud'))
-				    {
-				        cipsolaudCookieValue = getCookie('cip_sol_aud');
-				    }
-				if (typeof ord=='undefined') {ord=Math.random()*10000000000000000;}
-				document.write('<script language="JavaScript" src="http://ad.doubleclick.net/N3048/adj/jobs.thesun.co.uk/homepage;pos=leaderboard;tile=1;sz=728x90;' + cipsolaudCookieValue + 'ord=' + ord + '?" type="text/javascript"><\/script>');
+				document.write('<img src="http://placehold.it/728x90/ff0/000&text=Ad+Served+'+currTime()+'">');
 				</script>
-				<noscript><a href="http://ad.doubleclick.net/N3048/jump/jobs.thesun.co.uk/homepage;pos=leaderboard;tile=1;sz=728x90;ord=1937022004?" target="_blank"><img src="http://ad.doubleclick.net/N3048/ad/jobs.thesun.co.uk/homepage;pos=leaderboard;tile=1;sz=728x90;ord=1937022004?" border="0" alt=""></a></noscript>
+				-->
+
+			</script>
+	    </div>
+
+	    <p>LazyAd requirement <code>data-matchmedia="only screen and (min-width: 320px)"</code></p>
+	    <div class="ad ads--item" data-lazyad data-matchmedia="only screen and (min-width: 320px)">
+			<script type="text/lazyad">
+
+				<!--
+				<script language="JavaScript" type="text/javascript">
+				document.write('<img src="http://placehold.it/320x50/ff0/000&text=Ad+Served+'+currTime()+'">');
+				</script>
+				-->
+
+			</script>
+	    </div>
+	    <p>LazyAd requirement <code>data-matchmedia="only screen and (max-width: 320px)"</code></p>
+	    <div class="ad ads--item" data-lazyad data-matchmedia="only screen and (max-width: 320px)">
+			<script type="text/lazyad">
+
+				<!--
+				<script language="JavaScript" type="text/javascript">
+				document.write('<img src="http://placehold.it/320x50/ff0/000&text=Ad+Served+'+currTime()+'">');
+				</script>
 				-->
 
 			</script>
 	    </div>
 
 	    <p>LazyAd requirement <code>data-matchmedia="only screen and (min-width: 725px)"</code></p>
-	    <div class="ad ads--item" data-lazyad data-matchmedia="only screen and (min-width: 725px)">
+	    <div class="ad ads--item" data-lazyad data-matchmedia="only screen and (min-width: 728px)">
 			<script type="text/lazyad">
 
 				<!--
 				<script language="JavaScript" type="text/javascript">
-				function getCookie(c_name)
-				{
-				    var c_value = document.cookie;
-				    var c_start = c_value.indexOf(" " + c_name + "=");
-				    if (c_start == -1)
-				        {
-				            c_start = c_value.indexOf(c_name + "=");
-				        }
-				    if (c_start == -1)
-				        {
-				            c_value = null;
-				        }
-				    else
-				        {
-				            c_start = c_value.indexOf("=", c_start) + 1;
-				            var c_end = c_value.indexOf(";", c_start);
-				            if (c_end == -1)
-				                {
-				                    c_end = c_value.length;
-				                }
-				            c_value = unescape(c_value.substring(c_start,c_end));
-				        }
-				    return c_value;
-				}
-				var cipsolaudCookieValue = "";
-				if(getCookie('cip_sol_aud'))
-				    {
-				        cipsolaudCookieValue = getCookie('cip_sol_aud');
-				    }
-				if (typeof ord=='undefined') {ord=Math.random()*10000000000000000;}
-				document.write('<script language="JavaScript" src="http://ad.doubleclick.net/N3048/adj/jobs.thesun.co.uk/homepage;pos=leaderboard;tile=1;sz=728x90;' + cipsolaudCookieValue + 'ord=' + ord + '?" type="text/javascript"><\/script>');
+				document.write('<img src="http://placehold.it/728x90/ff0/000&text=Ad+Served+'+currTime()+'">');
 				</script>
-				<noscript><a href="http://ad.doubleclick.net/N3048/jump/jobs.thesun.co.uk/homepage;pos=leaderboard;tile=1;sz=728x90;ord=1937022004?" target="_blank"><img src="http://ad.doubleclick.net/N3048/ad/jobs.thesun.co.uk/homepage;pos=leaderboard;tile=1;sz=728x90;ord=1937022004?" border="0" alt=""></a></noscript>
 				-->
 
 			</script>
@@ -305,39 +154,8 @@
 
 				<!--
 				<script language="JavaScript" type="text/javascript">
-				function getCookie(c_name)
-				{
-				    var c_value = document.cookie;
-				    var c_start = c_value.indexOf(" " + c_name + "=");
-				    if (c_start == -1)
-				        {
-				            c_start = c_value.indexOf(c_name + "=");
-				        }
-				    if (c_start == -1)
-				        {
-				            c_value = null;
-				        }
-				    else
-				        {
-				            c_start = c_value.indexOf("=", c_start) + 1;
-				            var c_end = c_value.indexOf(";", c_start);
-				            if (c_end == -1)
-				                {
-				                    c_end = c_value.length;
-				                }
-				            c_value = unescape(c_value.substring(c_start,c_end));
-				        }
-				    return c_value;
-				}
-				var cipsolaudCookieValue = "";
-				if(getCookie('cip_sol_aud'))
-				    {
-				        cipsolaudCookieValue = getCookie('cip_sol_aud');
-				    }
-				if (typeof ord=='undefined') {ord=Math.random()*10000000000000000;}
-				document.write('<script language="JavaScript" src="http://ad.doubleclick.net/N3048/adj/jobs.thesun.co.uk/homepage;pos=leaderboard;tile=1;sz=728x90;' + cipsolaudCookieValue + 'ord=' + ord + '?" type="text/javascript"><\/script>');
+				document.write('<img src="http://placehold.it/728x90/ff0/000&text=Ad+Served+'+currTime()+'">');
 				</script>
-				<noscript><a href="http://ad.doubleclick.net/N3048/jump/jobs.thesun.co.uk/homepage;pos=leaderboard;tile=1;sz=728x90;ord=1937022004?" target="_blank"><img src="http://ad.doubleclick.net/N3048/ad/jobs.thesun.co.uk/homepage;pos=leaderboard;tile=1;sz=728x90;ord=1937022004?" border="0" alt=""></a></noscript>
 				-->
 
 			</script>
@@ -347,8 +165,17 @@
     </div>
 
     <script>
-    var span = document.getElementById('windowDimensions');
-    span.innerHTML = window.document.documentElement.clientWidth;
+
+    var updatePlaceHolder = function(){
+	    var placeholder = document.getElementById('windowDimensions'),
+	    	width = window.document.documentElement.clientWidth,
+	    	height = window.document.documentElement.clientHeight;
+    	placeholder.innerHTML = width + ' ⨉ ' + height;
+    }
+
+	updatePlaceHolder();
+    window.addEventListener('resize', updatePlaceHolder);
     </script>
+
 </body>
 </html>
