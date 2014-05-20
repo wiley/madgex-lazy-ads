@@ -3,7 +3,7 @@ body {
 	font-family: sans-serif;
 	margin: 0;
 }
-.readable {
+.withgutter {
 	margin: 10px 20px;
 }
 .ads{
@@ -13,11 +13,13 @@ body {
 }
 .ads__item {
 	margin: 1em 0 2em;
-	border: 2px solid red;
+	border-color: lightgrey;
+	border-width: 2px 0;
+	border-style: solid;
 	min-height: 90px;
 	border-left: none;
 	border-right: none;
-	background: red;
+	background: lightgrey;
 	text-align: center;
 }
 code {
@@ -61,6 +63,10 @@ code {
 }
 
 
+.ads__item--mobile-leaderboard, .ads__item--leaderboard {
+	background: red;
+	border-color: red;
+}
 
 @media only screen and (max-width: 320px) {
 	.ads__item--mobile-leaderboard {

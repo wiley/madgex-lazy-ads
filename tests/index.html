@@ -21,8 +21,8 @@
 </head>
 <body>
 
-    <h1>Visual tests for lazy-ads</h1>
-    <p>All ad container min-heights are 90px</p>
+    <h1 class="withgutter">Visual tests for lazy-ads</h1>
+    <p class="withgutter">All ad container min-heights are 90px</p>
     
     <div class="dimensionsContainer">
     	<hr>
@@ -30,8 +30,8 @@
     </div>
 
     <div class="ads">
-    	<p>No <code>data-lazyad</code> property</p>
-	    <div class="ad ads--item">
+    	<p class="withgutter">No <code>data-lazyad</code> property</p>
+	    <div class="ad ads__item">
 			<script type="text/lazyad">
 
 				<!--
@@ -43,9 +43,11 @@
 			</script>
 		</div>
 
-		<p>LazyAd requirement <code>data-adwidth="320"</code></p>
-		<p>Mobile leaderboard</p>
-	    <div class="ad ads--item" data-lazyad data-adwidth="320">
+		<div class="withgutter">
+			<p>LazyAd requirement <code>data-adwidth="320"</code></p>
+			<p>Mobile leaderboard</p>
+		</div>
+	    <div class="ad ads__item" data-lazyad data-adwidth="320">
 			<script type="text/lazyad">
 
 				<!--
@@ -57,9 +59,11 @@
 			</script>
 	    </div>
 
-		<p>LazyAd requirement <code>data-adwidth="728"</code></p>
-		<p>Leaderboard</p>
-	    <div class="ad ads--item" data-lazyad data-adwidth="728">
+		<div class="withgutter">
+			<p>LazyAd requirement <code>data-adwidth="728"</code></p>
+			<p>Leaderboard</p>
+		</div>
+	    <div class="ad ads__item" data-lazyad data-adwidth="728">
 			<script type="text/lazyad">
 
 				<!--
@@ -71,8 +75,8 @@
 			</script>
 	    </div>
 
-		<p>LazyAd requirement <code>data-adheight="90"</code></p>
-	    <div class="ad ads--item" data-lazyad data-adheight="90">
+		<p class="withgutter">LazyAd requirement <code>data-adheight="90"</code></p>
+	    <div class="ad ads__item" data-lazyad data-adheight="90">
 			<script type="text/lazyad">
 
 				<!--
@@ -84,8 +88,8 @@
 			</script>
 	    </div>
 
-		<p>LazyAd requirement <code>data-adheight="100"</code></p>
-	    <div class="ad ads--item" data-lazyad data-adheight="100">
+		<p class="withgutter">LazyAd requirement <code>data-adheight="100"</code></p>
+	    <div class="ad ads__item" data-lazyad data-adheight="100">
 			<script type="text/lazyad">
 
 				<!--
@@ -97,8 +101,8 @@
 			</script>
 	    </div>
 
-		<p>LazyAd requirement <code>data-adwidth="728" data-adheight="90"</code></p>
-	    <div class="ad ads--item" data-lazyad data-adwidth="728" data-adheight="90">
+		<p class="withgutter">LazyAd requirement <code>data-adwidth="728" data-adheight="90"</code></p>
+	    <div class="ad ads__item" data-lazyad data-adwidth="728" data-adheight="90">
 			<script type="text/lazyad">
 
 				<!--
@@ -110,20 +114,8 @@
 			</script>
 	    </div>
 
-	    <p>LazyAd requirement <code>data-matchmedia="only screen and (min-width: 320px)"</code></p>
-	    <div class="ad ads--item" data-lazyad data-matchmedia="only screen and (min-width: 320px)">
-			<script type="text/lazyad">
-
-				<!--
-				<script language="JavaScript" type="text/javascript">
-				document.write('<img src="http://placehold.it/320x50/ff0/000&text=Ad+Served+'+currTime()+'">');
-				</script>
-				-->
-
-			</script>
-	    </div>
-	    <p>LazyAd requirement <code>data-matchmedia="only screen and (max-width: 320px)"</code></p>
-	    <div class="ad ads--item" data-lazyad data-matchmedia="only screen and (max-width: 320px)">
+	    <p class="withgutter">LazyAd requirement <code>data-matchmedia="only screen and (min-width: 320px)"</code></p>
+	    <div class="ad ads__item" data-lazyad data-matchmedia="only screen and (min-width: 320px)">
 			<script type="text/lazyad">
 
 				<!--
@@ -135,8 +127,21 @@
 			</script>
 	    </div>
 
-	    <p>LazyAd requirement <code>data-matchmedia="only screen and (min-width: 725px)"</code></p>
-	    <div class="ad ads--item" data-lazyad data-matchmedia="only screen and (min-width: 728px)">
+	    <p class="withgutter">LazyAd requirement <code>data-matchmedia="only screen and (max-width: 320px)"</code></p>
+	    <div class="ad ads__item" data-lazyad data-matchmedia="only screen and (max-width: 320px)">
+			<script type="text/lazyad">
+
+				<!--
+				<script language="JavaScript" type="text/javascript">
+				document.write('<img src="http://placehold.it/320x50/ff0/000&text=Ad+Served+'+currTime()+'">');
+				</script>
+				-->
+
+			</script>
+	    </div>
+
+	    <p class="withgutter">LazyAd requirement <code>data-matchmedia="only screen and (min-width: 725px)"</code></p>
+	    <div class="ad ads__item" data-lazyad data-matchmedia="only screen and (min-width: 728px)">
 			<script type="text/lazyad">
 
 				<!--
@@ -148,8 +153,8 @@
 			</script>
 	    </div>
 
-		<p>LazyAd requirement <code>data-adwidth="728" data-adheight="90" data-matchmedia="only screen and (min-width: 800px)"</code></p>
-	    <div class="ad ads--item" data-lazyad data-adwidth="728" data-adheight="90" data-matchmedia="only screen and (min-width: 800px)">
+		<p class="withgutter">LazyAd requirement <code>data-adwidth="728" data-adheight="90" data-matchmedia="only screen and (min-width: 800px)"</code></p>
+	    <div class="ad ads__item" data-lazyad data-adwidth="728" data-adheight="90" data-matchmedia="only screen and (min-width: 800px)">
 			<script type="text/lazyad">
 
 				<!--
@@ -163,19 +168,7 @@
 
 
     </div>
-
-    <script>
-
-    var updatePlaceHolder = function(){
-	    var placeholder = document.getElementById('windowDimensions'),
-	    	width = window.document.documentElement.clientWidth,
-	    	height = window.document.documentElement.clientHeight;
-    	placeholder.innerHTML = width + ' ⨉ ' + height;
-    }
-
-	updatePlaceHolder();
-    window.addEventListener('resize', updatePlaceHolder);
-    </script>
+	<script src="utils.js"></script>
 
 </body>
 </html>
