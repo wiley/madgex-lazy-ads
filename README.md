@@ -3,6 +3,8 @@ Lazy Ads
 
 Deliver synchronous ads asynchronously without modifying the ad code. Conditionally load ads for responsive layouts using the ad container's dimensions, or a media query.
 
+#### Demo
+Here's a little test from the develop branch. It lazily loads and unloads each ad depending on the environment, a green background and the ad should load, red and it will unload (if loaded): [Demo](http://htmlpreview.github.io/?https://github.com/madgex/lazy-ads/blob/develop/tests/index2.html)
 
 ## The problem
 Ads have long been the elephant in the room in regards to Responsive Web Design, with few providers supporting the fluid, flexible layouts that define responsive websites. Here at [Madgex](http://madgex.com/) we deal with over 30 ad providers and many show no signs of supporting responsive layouts.
