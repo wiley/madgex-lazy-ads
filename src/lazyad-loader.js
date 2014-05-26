@@ -95,7 +95,7 @@
 
         if (hasjQuery === true) {
             log('Using jquery')
-            return $(context).find(tagname + '.' + className);
+            return $(context).find(tagName + '.' + className);
         }
 
         classListSupported = 'classList' in document.createElement("_"),
