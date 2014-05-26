@@ -1,7 +1,7 @@
 /**
 * lazyad-loader
 * Conditionally load ads after the page has rendered.
-* Madgex. Build date: 20-05-2014
+* Madgex. Build date: 26-05-2014
 */
 
 // An html parser written in JavaScript
@@ -1393,8 +1393,7 @@ window.matchMedia || (window.matchMedia = function (win) {
         containerClass: 'ad'
     };
 
-    var startTime,
-        hasjQuery = (window.jQuery || window.Zepto) ? true : false;
+    var startTime;
 
 
     // Global object
@@ -1478,11 +1477,6 @@ window.matchMedia || (window.matchMedia = function (win) {
         var results = [],
             selector, node, i, isLazyAd, classListSupported, querySelectorSupported,
             context = context || document;
-
-        if (hasjQuery === true) {
-            log('Using jquery')
-            return $(context).find(tagname + '.' + className);
-        }
 
         classListSupported = 'classList' in document.createElement("_"),
         querySelectorSupported = 'querySelectorAll' in document;
@@ -1659,9 +1653,6 @@ window.matchMedia || (window.matchMedia = function (win) {
         var adContainers,
             timeToComplete,
             counter = 0;
-
-
-        log('Lazyad init. Using jQuery/Zepto: ' + hasjQuery);
 
         // reset timer
         startTime = new Date().getTime();

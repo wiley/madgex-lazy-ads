@@ -7,8 +7,7 @@
         containerClass: 'ad'
     };
 
-    var startTime,
-        hasjQuery = (window.jQuery || window.Zepto) ? true : false;
+    var startTime;
 
 
     // Global object
@@ -92,11 +91,6 @@
         var results = [],
             selector, node, i, isLazyAd, classListSupported, querySelectorSupported,
             context = context || document;
-
-        if (hasjQuery === true) {
-            log('Using jquery')
-            return $(context).find(tagname + '.' + className);
-        }
 
         classListSupported = 'classList' in document.createElement("_"),
         querySelectorSupported = 'querySelectorAll' in document;
@@ -273,9 +267,6 @@
         var adContainers,
             timeToComplete,
             counter = 0;
-
-
-        log('Lazyad init. Using jQuery/Zepto: ' + hasjQuery);
 
         // reset timer
         startTime = new Date().getTime();
