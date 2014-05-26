@@ -1,7 +1,7 @@
 /**
 * lazyad-loader
 * Conditionally load ads after the page has rendered.
-* Madgex. Build date: 20-05-2014
+* Madgex. Build date: 26-05-2014
 */
 
 // An html parser written in JavaScript
@@ -1481,7 +1481,7 @@ window.matchMedia || (window.matchMedia = function (win) {
 
         if (hasjQuery === true) {
             log('Using jquery')
-            return $(context).find(tagname + '.' + className);
+            return $(context).find(tagName + '.' + className);
         }
 
         classListSupported = 'classList' in document.createElement("_"),
