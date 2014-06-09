@@ -1,0 +1,82 @@
+body {
+	font-size: 100%;
+	font-family: sans-serif;
+	margin: 0;
+}
+.withgutter {
+	margin: 10px 20px;
+}
+.ads{
+	margin: 1em 0;
+	padding: 0;
+	list-style: none;
+}
+.ads__item {
+	margin: 1em 0 2em;
+	border-color: lightgrey;
+	border-width: 2px 0;
+	border-style: solid;
+	min-height: 90px;
+	border-left: none;
+	border-right: none;
+	background: lightgrey;
+	text-align: center;
+}
+code {
+	background: hsl(43, 100%, 90.8%);
+}
+.dimensionsContainer {
+	display: block;
+	text-align: center;
+	margin: 2em 0;
+	line-height: 1em;
+}
+.dimensionsContainer hr {
+	border: none;
+	border-top: 1px solid red;
+	margin: 0;
+	position: relative;
+	color: red;
+}
+.dimensionsContainer hr:before {
+	content: "◀";
+	position: absolute;
+	display: block;
+	left: 0;
+	top: -0.5em;
+	text-align: left;
+}
+.dimensionsContainer hr:after {
+	content: "▶";
+	position: absolute;
+	display: block;
+	right: 0;
+	top: -0.5em;
+	text-align: right;
+}
+#windowDimensions {
+	background: white;
+	padding: 2px 10px;
+	position: relative;
+	top: -0.5em;
+	margin: 0;
+}
+
+
+.ads__item--mobile-leaderboard, .ads__item--leaderboard {
+	background: red;
+	border-color: red;
+}
+
+@media only screen and (max-width: 320px) {
+	.ads__item--mobile-leaderboard {
+		background: green;
+		border-color: green;
+	}
+}
+@media only screen and (min-width: 321px) and (max-width: 850px) {
+	.ads__item--leaderboard {
+		background: green;
+		border-color: green;
+	}
+}
