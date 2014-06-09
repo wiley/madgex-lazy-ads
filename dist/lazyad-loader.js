@@ -1,7 +1,7 @@
 /**
 * lazyad-loader
 * Conditionally load ads after the page has rendered.
-* Madgex. Build date: 26-05-2014
+* Madgex. Build date: 09-06-2014
 */
 
 // An html parser written in JavaScript
