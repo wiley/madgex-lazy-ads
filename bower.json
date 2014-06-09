@@ -1,6 +1,6 @@
 {
     "name": "lazy-ads",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "homepage": "https://github.com/madgex/lazy-ads",
     "authors": [
         "james.wragg@madgex.com"
@@ -19,6 +19,9 @@
         "node_modules",
         "bower_components",
         "test",
-        "tests"
+        "tests",
+        "src",
+        "gruntfile.js",
+        "package.json"
     ]
 }
