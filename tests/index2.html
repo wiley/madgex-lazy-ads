@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset=utf-8 />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<script src="../dist/lazyad-loader.js" async></script>
+  
+	<title>Lazy-ads tests</title>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+    <h1 class="withgutter">Visual tests for loading/unloading lazy-ads</h1>
+
+    <div class="dimensionsContainer">
+    	<hr>
+        <span id="windowDimensions"></span>
+    </div>
+
+    <div class="ads">
+
+	    <p class="withgutter">LazyAd requirement <code>data-matchmedia="only screen and (max-width: 320px)"</code></p>
+	    
+	    <div class="ad ads__item ads__item--mobile-leaderboard" data-lazyad data-matchmedia="only screen and (max-width: 320px)">
+			<script type="text/lazyad">
+
+				<!--
+				<script language="JavaScript" type="text/javascript">
+				document.write('<img src="http://placehold.it/320x50/ff0/000&text=Ad+Served+'+currTime()+'">');
+				</script>
+				-->
+
+			</script>
+	    </div>
+
+	    <p class="withgutter">LazyAd requirement <code>data-matchmedia="only screen and (min-width: 321px) and (max-width: 850px)"</code></p>
+
+	    <div class="ad ads__item ads__item--leaderboard" data-lazyad data-matchmedia="only screen and (min-width: 321px) and (max-width: 850px)">
+			<script type="text/lazyad">
+
+				<!--
+				<script language="JavaScript" type="text/javascript">
+				document.write('<img src="http://placehold.it/728x90/ff0/000&text=Ad+Served+'+currTime()+'">');
+				</script>
+				-->
+
+			</script>
+	    </div>
+
+
+    </div>
+	<script src="utils.js"></script>
+
+</body>
+</html>
