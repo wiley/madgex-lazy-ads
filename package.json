@@ -1,6 +1,6 @@
 {
     "name": "lazyad-loader",
-    "version": "1.1.4",
+    "version": "1.1.5",
     "description": "Conditionally load ads after the page has rendered.",
     "devDependencies": {
         "grunt": "^0.4.5",
