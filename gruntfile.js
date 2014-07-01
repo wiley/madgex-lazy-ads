@@ -26,7 +26,7 @@ module.exports = function(grunt) {
                     banner: '<%= uglify.options.banner %>',
                 },
                 files: {
-                    'dist/<%= pkg.name %>-min.js': ['<%= concat.vanilla.dest %>']
+                    'dist/<%= pkg.name %>.min.js': ['<%= concat.vanilla.dest %>']
                 }
             }
         },
