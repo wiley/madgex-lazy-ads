@@ -1,7 +1,7 @@
 /**
 * lazyad-loader
-* Conditionally load ads after the page has rendered.
-* Madgex. Build date: 24-06-2014
+* Deliver synchronous ads asynchronously with RWD support without modifying the ad code.
+* Madgex. Build date: 29-07-2014
 */
 
 // An html parser written in JavaScript
@@ -1859,7 +1859,7 @@ Copyright (c) 2014 Derek Brans, MIT license https://github.com/krux/postscribe/b
 })
 ;(function() {
 
-    var debug = true;
+    var debug = false;
 
     var config = {
         containerElement: 'div',
