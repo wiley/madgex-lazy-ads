@@ -2,6 +2,7 @@
     "name": "lazyad-loader",
     "version": "1.1.7",
     "description": "Deliver synchronous ads asynchronously with RWD support without modifying the ad code.",
+    "author":"James Wragg <james.wragg@madgex.com>",
     "main": "dist/lazyad-loader.js",
     "devDependencies": {
         "grunt": "^0.4.5",
