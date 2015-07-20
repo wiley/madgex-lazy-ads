@@ -11,6 +11,7 @@ LazyAds = (function() {
     var startTime;
 
 
+
     /**
      * Utility functions
      */

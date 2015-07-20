@@ -1,5 +1,5 @@
 /**
-* lazyad-loader v1.1.8
+* lazyad-loader v1.1.9
 * Deliver synchronous ads asynchronously with RWD support without modifying the ad code.
 * Madgex. Build date: 20-07-2015
 */
@@ -1543,6 +1543,7 @@ window.matchMedia || (window.matchMedia = function (win) {
         containerClass: 'ad'
     };
     var startTime;
+
 
 
     /**
