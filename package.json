@@ -1,30 +1,33 @@
 {
-    "name": "lazyad-loader",
-    "version": "1.1.9",
-    "description": "Deliver synchronous ads asynchronously with RWD support without modifying the ad code.",
-    "homepage": "https://github.com/madgex/lazy-ads",
-    "author": "James Wragg <james.wragg@madgex.com>",
-    "repository": {
-        "type": "git",
-        "url": "http://github.com/madgex/lazy-ads.git"
-    },
-    "bugs": {
-        "url": "http://github.com/madgex/lazy-ads/issues"
-    },
-    "main": "dist/lazyad-loader.js",
-    "keywords": [
-        "ads",
-        "lazy-load",
-        "async",
-        "responsive"
-    ],
-    "devDependencies": {
-        "grunt": "^0.4.5",
-        "grunt-contrib-clean": "^0.5.0",
-        "grunt-contrib-concat": "^0.4.0",
-        "grunt-contrib-connect": "^0.8.0",
-        "grunt-contrib-uglify": "^0.5.0",
-        "grunt-contrib-watch": "^0.6.1"
-    },
-    "license": "MIT"
+  "name": "lazyad-loader",
+  "version": "1.1.9",
+  "description": "Deliver synchronous ads asynchronously with RWD support without modifying the ad code.",
+  "homepage": "https://github.com/madgex/lazy-ads",
+  "author": "James Wragg <james.wragg@madgex.com>",
+  "repository": {
+      "type": "git",
+      "url": "http://github.com/madgex/lazy-ads.git"
+  },
+  "bugs": {
+      "url": "http://github.com/madgex/lazy-ads/issues"
+  },
+  "main": "dist/lazyad-loader.js",
+  "keywords": [
+      "ads",
+      "lazy-load",
+      "async",
+      "responsive"
+  ],
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-clean": "~0.6.0",
+    "grunt-contrib-concat": "~0.5.1",
+    "grunt-contrib-connect": "^0.10.1",
+    "grunt-contrib-uglify": "~0.9.1",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-release": "^0.13.0"
+  },
+  "dependencies": {
+    "postscribe": "^1.4.0"
+  }
 }
