@@ -1532,7 +1532,9 @@ window.matchMedia || (window.matchMedia = function (win) {
       loaded ? fn() : fns.push(fn)
     })
 })
-;(function() {
+;LazyAds = (function() {
+
+    'use strict';
 
     var debug = false;
 
@@ -1540,18 +1542,12 @@ window.matchMedia || (window.matchMedia = function (win) {
         containerElement: 'div',
         containerClass: 'ad'
     };
-
     var startTime;
-
-
-    // Global object
-    window.LazyAds = LazyAds = {};
 
 
 
     /**
      * Utility functions
-     *
      */
     ''.trim || (String.prototype.trim = function() {
         return this.replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '');
@@ -1621,7 +1617,7 @@ window.matchMedia || (window.matchMedia = function (win) {
 
 
     // Internals
-    var find = function(tagName, className, context) {
+    function find(tagName, className, context) {
         var results = [],
             selector, node, i, isLazyAd, classListSupported, querySelectorSupported,
             context = context || document;
@@ -1658,7 +1654,7 @@ window.matchMedia || (window.matchMedia = function (win) {
         return results;
     };
 
-    var findAdContainers = function(root) {
+    function findAdContainers(root) {
         var containers = find(config.containerElement, config.containerClass),
             node,
             isLazyAd = false,
@@ -1676,7 +1672,7 @@ window.matchMedia || (window.matchMedia = function (win) {
         return results;
     };
 
-    var findAdScripts = function(root) {
+    function findAdScripts(root) {
         var ads = find('script', false, root),
             node,
             type,
@@ -1693,13 +1689,13 @@ window.matchMedia || (window.matchMedia = function (win) {
         return results;
     };
 
-    var stripCommentBlock = function(str) {
+    function stripCommentBlock(str) {
         // trim whitespace
         str = str.replace(/^\s+|\s+$/g, '');
         return str.replace('<!--', '').replace('-->', '').trim();
     };
 
-    var adReplace = function(el, text) {
+    function adReplace(el, text) {
         var node, target;
 
         log('Injecting lazy-loaded Ad', el);
@@ -1713,7 +1709,7 @@ window.matchMedia || (window.matchMedia = function (win) {
         el.setAttribute('data-lazyad-loaded', true);
     };
 
-    var processAll = function(adContainers) {
+    function processAll(adContainers) {
 
         var counter = 0,
             el,
@@ -1779,7 +1775,7 @@ window.matchMedia || (window.matchMedia = function (win) {
         return counter;
     };
 
-    var unloadAds = function(el) {
+    function unloadAds(el) {
         log('Unloading Ad:', el);
         var childNodes = el.getElementsByTagName('*');
 
@@ -1796,8 +1792,7 @@ window.matchMedia || (window.matchMedia = function (win) {
         el.setAttribute('data-lazyad-loaded', "false");
     }
 
-    // Expose init method
-    LazyAds.init = function() {
+    function init() {
         var adContainers,
             timeToComplete,
             counter = 0;
@@ -1826,10 +1821,14 @@ window.matchMedia || (window.matchMedia = function (win) {
 
         // watch the windows resize event
         addEvent('resize', window, debounce(function(e) {
-            LazyAds.init();
+            init();
         }, 250));
 
-        LazyAds.init();
+        init();
     });
+
+    return {
+        init: init
+    }
 
 })();
