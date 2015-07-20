@@ -7,13 +7,13 @@ module.exports = function(grunt) {
             options: {
                 separator: ';',
                 banner: '/**\n' +
-                    '* <%= pkg.name %>\n' +
+                    '* <%= pkg.name %> v<%= pkg.version %>\n' +
                     '* <%= pkg.description %>\n' +
                     '* Madgex. Build date: <%= grunt.template.today("dd-mm-yyyy") %>\n' +
                     '*/\n\n'
             },
-            vanilla: {
-                src: ['src/libs/*.js', 'src/lazyad-loader.js'],
+            target: {
+                src: ['node_modules/postscribe/dist/postscribe.js','src/libs/*.js', 'src/lazyad-loader.js'],
                 dest: 'dist/<%= pkg.name %>.js'
             }
         },
@@ -21,12 +21,12 @@ module.exports = function(grunt) {
             options: {
                 banner: '<%= concat.options.banner %>'
             },
-            vanilla: {
+            target: {
                 options: {
                     banner: '<%= uglify.options.banner %>',
                 },
                 files: {
-                    'dist/<%= pkg.name %>.min.js': ['<%= concat.vanilla.dest %>']
+                    'dist/<%= pkg.name %>-min.js': ['<%= concat.target.dest %>']
                 }
             }
         },
@@ -46,7 +46,13 @@ module.exports = function(grunt) {
                     livereload: true,
                 }
             }
+        },
+        release: {
+            options: {
+                additionalFiles: ['bower.json']
+            }
         }
+
     });
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -54,6 +60,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-release');
 
     grunt.registerTask('test', ['connect', 'watch']);
 
