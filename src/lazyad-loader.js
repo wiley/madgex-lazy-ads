@@ -1,23 +1,18 @@
-(function() {
+LazyAds = (function() {
 
-    var debug = true;
+    'use strict';
+
+    var debug = false;
 
     var config = {
         containerElement: 'div',
         containerClass: 'ad'
     };
-
     var startTime;
-
-
-    // Global object
-    window.LazyAds = LazyAds = {};
-
 
 
     /**
      * Utility functions
-     *
      */
     ''.trim || (String.prototype.trim = function() {
         return this.replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '');
@@ -87,7 +82,7 @@
 
 
     // Internals
-    var find = function(tagName, className, context) {
+    function find(tagName, className, context) {
         var results = [],
             selector, node, i, isLazyAd, classListSupported, querySelectorSupported,
             context = context || document;
@@ -124,7 +119,7 @@
         return results;
     };
 
-    var findAdContainers = function(root) {
+    function findAdContainers(root) {
         var containers = find(config.containerElement, config.containerClass),
             node,
             isLazyAd = false,
@@ -142,7 +137,7 @@
         return results;
     };
 
-    var findAdScripts = function(root) {
+    function findAdScripts(root) {
         var ads = find('script', false, root),
             node,
             type,
@@ -159,13 +154,13 @@
         return results;
     };
 
-    var stripCommentBlock = function(str) {
+    function stripCommentBlock(str) {
         // trim whitespace
         str = str.replace(/^\s+|\s+$/g, '');
         return str.replace('<!--', '').replace('-->', '').trim();
     };
 
-    var adReplace = function(el, text) {
+    function adReplace(el, text) {
         var node, target;
 
         log('Injecting lazy-loaded Ad', el);
@@ -179,7 +174,7 @@
         el.setAttribute('data-lazyad-loaded', true);
     };
 
-    var processAll = function(adContainers) {
+    function processAll(adContainers) {
 
         var counter = 0,
             el,
@@ -245,7 +240,7 @@
         return counter;
     };
 
-    var unloadAds = function(el) {
+    function unloadAds(el) {
         log('Unloading Ad:', el);
         var childNodes = el.getElementsByTagName('*');
 
@@ -262,8 +257,7 @@
         el.setAttribute('data-lazyad-loaded', "false");
     }
 
-    // Expose init method
-    LazyAds.init = function() {
+    function init() {
         var adContainers,
             timeToComplete,
             counter = 0;
@@ -292,10 +286,14 @@
 
         // watch the windows resize event
         addEvent('resize', window, debounce(function(e) {
-            LazyAds.init();
+            init();
         }, 250));
 
-        LazyAds.init();
+        init();
     });
+
+    return {
+        init: init
+    }
 
 })();
