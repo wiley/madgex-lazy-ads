@@ -64,7 +64,7 @@ This ad will only load if the viewport is a screen & at least 800px wide on load
   <div class="ad" data-lazyad data-matchmedia="only screen and (min-width: 800px)">
     <script type="text/lazyad">
       <!--
-        ADSCRIPT (including wrapping <script> tag)
+        AD SCRIPT HERE (including wrapping <script> tag)
       -->
     </script>
   </div>
