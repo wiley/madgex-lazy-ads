@@ -47,29 +47,17 @@ Wrap the ad script to prevent it from running inline. The `data-lazyad` attribut
   <div class="ad" data-lazyad>
     <script type="text/lazyad">
       <!--
-        ADSCRIPT (including wrapping <script> tag)
+        AD SCRIPT HERE (including wrapping <script> tag)
       -->
     </script>
   </div>
 ```
 
-**Note: the HTML comments wrapping the ad script are required to prevent the ads closing `</script>` tag from closing our `text/lazyad` wrapper prematurely.**
+**Important:** The HTML comments wrapping the ad script **are required**. They prevent the ads closing `</script>` tag from closing our `text/lazyad` script tag prematurely.
 
 ## Adding conditions
-#### Container dimensions 
-This ad will only load if the div container is at least 728px x 90px (leaderboard) on load.
-``` html
-  <!-- wrap all ad scripts in a lazyad div & lazyad script  -->
-  <div class="ad" data-lazyad data-adwidth="728" data-adheight="90">
-    <script type="text/lazyad">
-      <!--
-        ADSCRIPT (including wrapping <script> tag)
-      -->
-    </script>
-  </div>
-```
 
-#### Media Query 
+#### Media query
 This ad will only load if the viewport is a screen & at least 800px wide on load.
 ``` html
   <!-- wrap all ad scripts in a lazyad div & lazyad script  -->
@@ -77,6 +65,19 @@ This ad will only load if the viewport is a screen & at least 800px wide on load
     <script type="text/lazyad">
       <!--
         ADSCRIPT (including wrapping <script> tag)
+      -->
+    </script>
+  </div>
+```
+
+#### Container dimensions 
+This ad will only load if the ad container is at least 728px x 90px on load.
+``` html
+  <!-- wrap all ad scripts in a lazyad div & lazyad script  -->
+  <div class="ad" data-lazyad data-adwidth="728" data-adheight="90">
+    <script type="text/lazyad">
+      <!--
+        AD SCRIPT HERE (including wrapping <script> tag)
       -->
     </script>
   </div>
