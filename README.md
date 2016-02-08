@@ -26,7 +26,7 @@ The lazy ads loader sits on top of a couple of polyfills & tried and tested open
 * [PostScribe](https://github.com/krux/postscribe/) by Krux Digital, Inc. overrides document.write to provide async support.
 * [indexof polyfill](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf) for indexOf support on older browsers (via MDN)
 * [Media.match](https://github.com/weblinc/media-match) media queries polyfill for older browsers.
-* [domReady](https://github.com/ded/domready) a tiny, sturdy DOMReady implementaiton for older browsers.
+* [domReady](https://github.com/ded/domready) a tiny, sturdy DOMReady implementation for older browsers.
 
 Once minified & gzipped the script weighs in at ~6.5KB.
 
