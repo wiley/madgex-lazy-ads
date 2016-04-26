@@ -156,9 +156,12 @@ LazyAds = (function() {
     };
 
     function stripCommentBlock(str) {
-        // trim whitespace
-        str = str.replace(/^\s+|\s+$/g, '');
-        return str.replace('<!--', '').replace('-->', '').trim();
+        // trim whitespace and drop the outermost comment block
+        str = str
+            .trim()
+            .match(/^<!--([\s\S]*)-->$/m)[1]
+            .trim();
+        return str;
     };
 
     function adReplace(el, text) {
