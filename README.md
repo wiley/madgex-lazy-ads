@@ -55,6 +55,15 @@ Wrap the ad script to prevent it from running inline. The `data-lazyad` attribut
 
 **Important:** The HTML comments wrapping the ad script **are required**. They prevent the ads closing `</script>` tag from closing our `text/lazyad` script tag prematurely.
 
+Since HTML comments can not be nested your ad script must not contain HTML comments. To support HTML comments you can instead add your ad script as a `data-lazyad-code` attribute on the `script` element. This requires your code to be HTML entity encoded.
+
+``` html
+  <!-- wrap all ad scripts in a lazyad div & lazyad script  -->
+  <div class="ad" data-lazyad>
+    <script type="text/lazyad" data-lazyad-code="ENCODED AD SCRIPT HERE"></script>
+  </div>
+```
+
 ## Adding conditions
 
 #### Media query
@@ -81,7 +90,7 @@ This ad will only load if the ad container is at least 728px x 90px on load.
       -->
     </script>
   </div>
-```
+  ```
 
 ## Support
 IE7 and up, and modern browsers (Chrome, FF, Opera etc).
