@@ -33,6 +33,12 @@ Once minified & gzipped the script weighs in at ~6.5KB.
 ## An additional benefit - performance
 This asynchronous approach to loading ads also provides a fair performance boost for the page content as `document.write` is no longer blocking rendering. This performance bottleneck has been [widely documented](http://www.stevesouders.com/blog/2012/04/10/dont-docwrite-scripts/), yet ad providers continue to use the technique.
 
+## Installation
+Install via `npm`:
+
+``` console
+npm install --save lazy-ads
+```
 
 ## Basic usage
 Load the script.
@@ -70,7 +76,7 @@ This ad will only load if the viewport is a screen & at least 800px wide on load
   </div>
 ```
 
-#### Container dimensions 
+#### Container dimensions
 This ad will only load if the ad container is at least 728px x 90px on load.
 ``` html
   <!-- wrap all ad scripts in a lazyad div & lazyad script  -->
