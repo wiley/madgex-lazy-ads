@@ -14,7 +14,7 @@ module.exports = function(grunt) {
             },
             target: {
                 src: ['node_modules/postscribe/dist/postscribe.js','src/libs/*.js', 'src/lazyad-loader.js'],
-                dest: 'dist/<%= pkg.name %>.js'
+                dest: 'dist/lazyad-loader.js'
             }
         },
         uglify: {
@@ -26,7 +26,7 @@ module.exports = function(grunt) {
                     banner: '<%= uglify.options.banner %>',
                 },
                 files: {
-                    'dist/<%= pkg.name %>.min.js': ['<%= concat.target.dest %>']
+                    'dist/lazyad-loader.min.js': ['<%= concat.target.dest %>']
                 }
             }
         },

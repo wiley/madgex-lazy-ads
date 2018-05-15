@@ -1,7 +1,7 @@
 /**
-* lazyad-loader v1.1.7
+* lazy-ads v1.1.10
 * Deliver synchronous ads asynchronously with RWD support without modifying the ad code.
-* Madgex. Build date: 20-07-2015
+* Madgex. Build date: 15-05-2018
 */
 
 /* Asynchronously write javascript, even with document.write., v1.4.0 https://krux.github.io/postscribe

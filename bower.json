@@ -1,12 +1,12 @@
 {
   "name": "lazy-ads",
-  "version": "1.1.8",
+  "version": "1.1.10",
   "homepage": "https://github.com/madgex/lazy-ads",
   "authors": [
     "James Wragg <james.wragg@madgex.com>"
   ],
   "description": "Deliver synchronous ads asynchronously with RWD support without modifying the ad code.",
-  "main": "dist/lazyad-loader.js",
+  "main": "dist/lazyads-loader.js",
   "keywords": [
     "ads",
     "lazy-load",
