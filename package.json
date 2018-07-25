@@ -1,6 +1,6 @@
 {
   "name": "lazy-ads",
-  "version": "1.1.11",
+  "version": "1.1.12",
   "description": "Deliver synchronous ads asynchronously with RWD support without modifying the ad code.",
   "homepage": "https://github.com/madgex/lazy-ads",
   "author": "James Wragg <james.wragg@madgex.com>",
